@@ -1,3 +1,16 @@
+#!/usr/bin/env python
+"""XL430 is a handsome wrapper around the DynamixelSDK.
+
+This makes it much easier to deal with Dynamixel's XL430.
+It contains easy to use functions for connecting and position control,
+also for get some relevant control data from it
+"""
+
+__author__ = "Vinzenz Weist"
+__copyright__ = "Copyright 2020, Vinzenz Weist"
+__license__ = "GPLv3"
+__version__ = "0.8.0"
+
 # +----------------------------+
 # | define XL430 Control Codes |
 # +----------------------------+
@@ -25,7 +38,7 @@ ADDR_XL_MIN_POSITION_LIMIT = 52
 ADDR_XL_SHUTDOWN = 63
 
 # 1. Ram based codes
-ADDR_XL_TORQUE_ENABLE = 64
+ADDR_XL_TORQUE = 64
 ADDR_XL_LED = 65
 ADDR_XL_STATUS_RETURN_LEVEL = 68
 ADDR_XL_REGISTERED_INSTRUCTION = 69
@@ -57,18 +70,21 @@ ADDR_XL_PRESENT_TEMPERATURE = 146
 
 # 2. Extended XL430 based codes
 # Torque Status
-TORQUE_DISABLED = 0
-TORQUE_ENABLED = 1
+XL_TORQUE_DISABLED = 0
+XL_TORQUE_ENABLED = 1
 # LED Status
-LED_DISABLED = 0
-LED_ENABLED = 1
+XL_LED_DISABLED = 0
+XL_LED_ENABLED = 1
 # Control Modes
-VELOCITY_CONTROL_MODE = 1
-POSITION_CONTROL_MODE = 3
-EXTENDED_POSITION_CONTROL_MODE = 4
-PWM_CONTROL_MODE = 16
+XL_CONTROL_MODE_VELOCITY = 1
+XL_CONTROL_MODE_POSITION = 3
+XL_CONTROL_MODE_EXTENDED_POSITION = 4
+XL_CONTROL_MODE_PWM = 16
+# Drive Modes
+XL_DRIVE_MODE_NORMAL = 0
+XL_DRIVE_MODE_REVERSED = 1
 # Byte length
-LEN_XL_GOAL_VELOCITY = 4
-LEN_XL_GOAL_POSITION = 4
-LEN_XL_PRESENT_POSITION = 4
+XL_LEN_GOAL_VELOCITY = 4
+XL_LEN_GOAL_POSITION = 4
+XL_LEN_PRESENT_POSITION = 4
 
