@@ -3,7 +3,7 @@
 Example for the XL430 Wrapper usage.
 
 This prints some basic information's about the connected Dynamixel's.
-After that it will check the if the torque is enabled, if the torque is enabled,
+After that it will check if the torque is enabled, if the torque is enabled,
 the torque will be disabled. Then it will be checked if the correct operating mode is set
 (GOAL_VELOCITY). If not, the drive mode will be changed. Then the Torque will be enabled, also
 the built in LED's. Then the Dynamixel's rotate with Velocity 50 for 3 seconds, than the dynamixel's
