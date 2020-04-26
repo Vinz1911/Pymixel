@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """XL430 is a handsome wrapper around the DynamixelSDK.
 
 This makes it much easier to deal with Dynamixel's XL430.
