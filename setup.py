@@ -22,8 +22,8 @@ from setuptools import setup
 
 setup(
     name='pymixel',
-    version='0.5.0',
-    packages=['dynamixel'],
+    version='0.6.0',
+    packages=['pymixel'],
     package_dir={'': 'src'},
     license='GPLv3',
     description='Dynamixel X Python3 Package',
