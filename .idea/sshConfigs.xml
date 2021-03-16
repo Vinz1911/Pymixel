@@ -2,8 +2,15 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="192.168.178.77" id="14d21d82-d071-4070-91c0-7f05f8f2860f" port="22" customName="Turtlebot" nameFormat="CUSTOM" username="ubuntu" />
-      <sshConfig authType="PASSWORD" host="192.168.178.77" id="958290f1-6c3c-4465-ad7e-c9827b004486" port="22" customName="Turtlebot" nameFormat="CUSTOM" username="ubuntu" />
+      <sshConfig authType="PASSWORD" host="192.168.178.77" id="14d21d82-d071-4070-91c0-7f05f8f2860f" port="22" customName="Turtlebot" nameFormat="CUSTOM" username="ubuntu">
+        <option name="customName" value="Turtlebot" />
+      </sshConfig>
+      <sshConfig authType="PASSWORD" host="192.168.178.77" id="958290f1-6c3c-4465-ad7e-c9827b004486" port="22" customName="Turtlebot" nameFormat="CUSTOM" username="ubuntu">
+        <option name="customName" value="Turtlebot" />
+      </sshConfig>
+      <sshConfig authType="PASSWORD" host="192.168.178.77" id="adee8bbb-5e09-482c-a3bb-7b2fd3b63bf6" port="22" customName="Turtlebot" nameFormat="CUSTOM">
+        <option name="customName" value="Turtlebot" />
+      </sshConfig>
     </configs>
   </component>
 </project>

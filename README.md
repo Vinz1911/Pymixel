@@ -1,2 +1,5 @@
-# Dynamixel_XL430
-This is a simple and more handsome class to handle Dynamixel XL430 Servo control, based on DynamixelSDK
+# Dynamixel
+
+## Info:
+This is a simple library to communicate with dynamixel x based servo's.
+Based on the dynamixel sdk.
