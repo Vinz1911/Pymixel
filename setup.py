@@ -21,14 +21,14 @@
 from setuptools import setup
 
 setup(
-    name='dynamixel',
+    name='pymixel',
     version='0.5.0',
     packages=['dynamixel'],
     package_dir={'': 'src'},
     license='GPLv3',
     description='Dynamixel X Python3 Package',
     long_description=open('README.md').read(),
-    url='https://github.com/Vinz1911/Dynamixel',
+    url='https://github.com/Vinz1911/Pymixel',
     author='Vinzenz Weist',
     author_email='Vinz1911@gmail.com',
     install_requires=['dynamixel-sdk']
