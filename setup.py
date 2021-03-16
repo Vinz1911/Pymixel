@@ -28,7 +28,7 @@ setup(
     license='GPLv3',
     description='Dynamixel X Python3 Package',
     long_description=open('README.md').read(),
-    url='https://github.com/Vinz1911/Dynamixel_XL430',
+    url='https://github.com/Vinz1911/Dynamixel',
     author='Vinzenz Weist',
     author_email='Vinz1911@gmail.com',
     install_requires=['dynamixel-sdk']
