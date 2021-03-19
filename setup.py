@@ -32,6 +32,7 @@ setup(
     package_dir={'': 'src'},
     license='GPLv3',
     description='Dynamixel X Python Package',
+    long_description_content_type='text/markdown',
     long_description=open('README.md').read(),
     url='https://github.com/Vinz1911/Pymixel',
     author='Vinzenz Weist',
