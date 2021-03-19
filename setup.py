@@ -27,7 +27,7 @@ from setuptools import setup
 
 setup(
     name='pymixel',
-    version='0.6.0',
+    version='0.8.0',
     packages=['pymixel'],
     package_dir={'': 'src'},
     license='GPLv3',
