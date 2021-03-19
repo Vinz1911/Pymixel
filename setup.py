@@ -18,6 +18,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+__author__ = "Vinzenz Weist"
+__copyright__ = "Copyright 2020, Vinzenz Weist"
+__license__ = "GPLv3"
+__version__ = "0.8.0"
+
 from setuptools import setup
 
 setup(

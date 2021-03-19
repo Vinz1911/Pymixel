@@ -25,27 +25,22 @@ from .address_table import AddressTable
 
 class Dynamixel:
     """Handsome class to control Dynamixel (X, XH, XM) Servos"""
-    PROTOCOL_VERSION = 2.0  # Dynamixel Protocol Version
-    BAUDRATE = 1_000_000  # Default Baud Rate
 
     # init class
-    def __init__(self, path="/dev/ttyACM0"):
+    def __init__(self, path: str = "/dev/ttyACM0", baud: int = 1_000_000, version: int = 2.0):
+        self.__protocol_version = version
+        self.__baud_rate = baud
         self.__port_handler = PortHandler(path)
-        self.__packet_handler = PacketHandler(self.PROTOCOL_VERSION)
-        self.__goal_velocity_sync_write = GroupSyncWrite(self.__port_handler, self.__packet_handler,
-                                                         AddressTable.ADDR_GOAL_VELOCITY.value,
-                                                         AddressTable.ADDR_LEN_GOAL_VELOCITY.value)
-        self.__goal_position_sync_write = GroupSyncWrite(self.__port_handler, self.__packet_handler,
-                                                         AddressTable.ADDR_GOAL_POSITION.value,
-                                                         AddressTable.ADDR_LEN_GOAL_POSITION.value)
+        self.__packet_handler = PacketHandler(self.__protocol_version)
+        self.__group_bulk_write = GroupBulkWrite(self.__port_handler, self.__packet_handler)
 
-    # open ttl port and set baudrate for communication
+    # open ttl port and set baud rate for communication
     # with the dynamixel servo motors
     def start(self):
         if not self.__port_handler.openPort():
             print("failed: port not opened")
-        if not self.__port_handler.setBaudRate(self.BAUDRATE):
-            print("failed: baudrate not set")
+        if not self.__port_handler.setBaudRate(self.__baud_rate):
+            print("failed: baud rate not set")
 
     # terminate the connection
     # close the communication channel
@@ -57,52 +52,59 @@ class Dynamixel:
         dxl_result, dxl_error = self.__packet_handler.reboot(self.__port_handler, dxl_id)
         self.__validate_write(dxl_result, dxl_error)
 
-    # set torque on servo
-    def set_torque(self, dxl_id, torque_state):
-        self.__write_register1(dxl_id, AddressTable.ADDR_TORQUE_ENABLE.value, torque_state)
+    # get torque status
+    def get_torque(self, dxl_id):
+        dxl_torque = self.__read_register1(dxl_id, AddressTable.ADDR_TORQUE.value)
+        return dxl_torque
 
-    # set led on servo
-    def set_led(self, dxl_id, led_state):
-        self.__write_register1(dxl_id, AddressTable.ADDR_LED.value, led_state)
+    # get led status
+    def get_led(self, dxl_id):
+        dxl_led = self.__read_register1(dxl_id, AddressTable.ADDR_LED.value)
+        return dxl_led
 
-    # set servo operating mode
-    def set_operating_mode(self, dxl_id, control_mode):
-        self.__write_register1(dxl_id, AddressTable.ADDR_OPERATING_MODE.value, control_mode)
+    # get drive mode
+    def get_drive_mode(self, dxl_id):
+        dxl_drive_mode = self.__read_register1(dxl_id, AddressTable.ADDR_DRIVE_MODE.value)
+        return dxl_drive_mode
 
-    # set goal velocity (drive servo)
-    def set_goal_velocity(self, dxl_id, velocity):
-        self.__write_register4(dxl_id, AddressTable.ADDR_GOAL_VELOCITY.value, velocity)
+    def get_operating_mode(self, dxl_id):
+        dxl_operating_mode = self.__read_register1(dxl_id, AddressTable.ADDR_OPERATING_MODE.value)
+        return dxl_operating_mode
 
-    # set goal position (servo position)
-    def set_goal_position(self, dxl_id, position):
-        self.__write_register4(dxl_id, AddressTable.ADDR_GOAL_POSITION.value, position)
+    # get model number
+    def get_model_number(self, dxl_id):
+        dxl_model_number = self.__read_register2(dxl_id, AddressTable.ADDR_MODEL_NUMBER.value)
+        return dxl_model_number
 
-    # set goal velocity to two dynamixel  (drive servos)
-    def set_sync_goal_velocity(self, dxl1_id, dxl2_id, velocity_left, velocity_right):
-        goal_velocity_left = self.__sync_value(velocity_left)
-        goal_velocity_right = self.__sync_value(velocity_right)
+    # get firmware version
+    def get_firmware_version(self, dxl_id):
+        dxl_firmware_version = self.__read_register1(dxl_id, AddressTable.ADDR_FIRMWARE_VERSION.value)
+        return dxl_firmware_version
 
-        dxl1_param = self.__goal_velocity_sync_write.addParam(dxl1_id, goal_velocity_left)
-        dxl2_param = self.__goal_velocity_sync_write.addParam(dxl2_id, goal_velocity_right)
-        self.__validate_param(dxl1_id, dxl2_id, dxl1_param, dxl2_param)
-
-        self.__write_sync_velocity_register4()
-
-    # set goal position to two dynamixel  (servo positions)
-    def set_sync_goal_position(self, dxl1_id, dxl2_id, position_left, position_right):
-        goal_position_left = self.__sync_value(position_left)
-        goal_position_right = self.__sync_value(position_right)
-
-        dxl1_param = self.__goal_position_sync_write.addParam(dxl1_id, goal_position_left)
-        dxl2_param = self.__goal_position_sync_write.addParam(dxl2_id, goal_position_right)
-        self.__validate_param(dxl1_id, dxl2_id, dxl1_param, dxl2_param)
-
-        self.__write_sync_position_register4()
+    # get protocol type
+    def get_protocol_type(self, dxl_id):
+        dxl_protocol_type = self.__read_register1(dxl_id, AddressTable.ADDR_PROTOCOL_TYPE.value)
+        return dxl_protocol_type
 
     # get current servo temperature
     def get_present_temperature(self, dxl_id):
         dxl_temperature = self.__read_register1(dxl_id, AddressTable.ADDR_PRESENT_TEMPERATURE.value)
         return dxl_temperature
+
+    # get current pwm
+    def get_present_pwm(self, dxl_id):
+        dxl_pwm = self.__read_register4(dxl_id, AddressTable.ADDR_PRESENT_PWM.value)
+        return dxl_pwm
+
+    # get present load
+    def get_present_load(self, dxl_id):
+        dxl_load = self.__read_register2(dxl_id, AddressTable.ADDR_PRESENT_LOAD.value)
+        return dxl_load
+
+    # get present input voltage
+    def get_present_input_voltage(self, dxl_id):
+        dxl_input_voltage = self.__read_register2(dxl_id, AddressTable.ADDR_PRESENT_INPUT_VOLTAGE.value)
+        return dxl_input_voltage
 
     # get current servo velocity
     def get_present_velocity(self, dxl_id):
@@ -113,6 +115,51 @@ class Dynamixel:
     def get_present_position(self, dxl_id):
         dxl_position = self.__read_register4(dxl_id, AddressTable.ADDR_PRESENT_POSITION.value)
         return dxl_position
+
+    # get real time tick
+    def get_realtime_tick(self, dxl_id):
+        dxl_realtime_tick = self.__read_register2(dxl_id, AddressTable.ADDR_REALTIME_TICK.value)
+        return dxl_realtime_tick
+
+    # set torque on servo
+    def set_torque(self, dxl_id, torque_state):
+        self.__write_register1(dxl_id, AddressTable.ADDR_TORQUE.value, torque_state)
+
+    # set led on servo
+    def set_led(self, dxl_id, led_state):
+        self.__write_register1(dxl_id, AddressTable.ADDR_LED.value, led_state)
+
+    # set servo operating mode
+    def set_operating_mode(self, dxl_id, control_mode):
+        self.__write_register1(dxl_id, AddressTable.ADDR_OPERATING_MODE.value, control_mode)
+
+    # set drive mode
+    def set_drive_mode(self, dxl_id, drive_mode):
+        self.__write_register1(dxl_id, AddressTable.ADDR_DRIVE_MODE.value, drive_mode)
+
+    # set goal velocity (drive servo)
+    def set_goal_velocity(self, dxl_id, velocity):
+        self.__write_register4(dxl_id, AddressTable.ADDR_GOAL_VELOCITY.value, velocity)
+
+    # set goal position (servo position)
+    def set_goal_position(self, dxl_id, position):
+        self.__write_register4(dxl_id, AddressTable.ADDR_GOAL_POSITION.value, position)
+
+    # set goal velocity to two dynamixel (drive servos)
+    def set_goal_velocity_group(self, dxl1_id, dxl2_id, dxl1_velocity, dxl2_velocity):
+        dxl1_velocity_value = self.__sync_value(dxl1_velocity)
+        dxl2_velocity_value = self.__sync_value(dxl2_velocity)
+        self.__write_group_register4(dxl1_id, dxl2_id, AddressTable.ADDR_GOAL_VELOCITY.value,
+                                     AddressTable.ADDR_LEN_GOAL_VELOCITY.value,
+                                     dxl1_velocity_value, dxl2_velocity_value)
+
+    # set goal position to two dynamixel (servo positions)
+    def set_goal_position_group(self, dxl1_id, dxl2_id, dxl1_position, dxl2_position):
+        dxl1_position_value = self.__sync_value(dxl1_position)
+        dxl2_position_value = self.__sync_value(dxl2_position)
+        self.__write_group_register4(dxl1_id, dxl2_id, AddressTable.ADDR_GOAL_POSITION.value,
+                                     AddressTable.ADDR_LEN_GOAL_POSITION.value,
+                                     dxl1_position_value, dxl2_position_value)
 
     # MARK: PRIVATE REGISTER FUNCTIONS
     def __write_register1(self, dxl_id, address, value):
@@ -127,15 +174,14 @@ class Dynamixel:
         dxl_result, dxl_error = self.__packet_handler.write4ByteTxRx(self.__port_handler, dxl_id, address, value)
         self.__validate_write(dxl_result, dxl_error)
 
-    def __write_sync_velocity_register4(self):
-        dxl_result = self.__goal_velocity_sync_write.txPacket()
-        self.__validate_write(dxl_result, 0)
-        self.__goal_velocity_sync_write.clearParam()
+    def __write_group_register4(self, dxl1_id, dxl2_id, address, addr_len, dxl1_value, dxl2_value):
+        dxl1_param = self.__group_bulk_write.addParam(dxl1_id, address, addr_len, dxl1_value)
+        dxl2_param = self.__group_bulk_write.addParam(dxl2_id, address, addr_len, dxl2_value)
+        self.__validate_param(dxl1_id, dxl2_id, dxl1_param, dxl2_param)
 
-    def __write_sync_position_register4(self):
-        dxl_result = self.__goal_position_sync_write.txPacket()
+        dxl_result = self.__group_bulk_write.txPacket()
         self.__validate_write(dxl_result, 0)
-        self.__goal_position_sync_write.clearParam()
+        self.__group_bulk_write.clearParam()
 
     def __read_register1(self, dxl_id, address):
         dxl_data, dxl_result, dxl_error = self.__packet_handler.read1ByteTxRx(self.__port_handler, dxl_id, address)
