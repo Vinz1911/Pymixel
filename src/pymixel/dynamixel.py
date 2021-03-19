@@ -20,7 +20,7 @@
 
 
 from dynamixel_sdk import *
-from .address_table import AddressTable
+from .address import _Address
 
 
 class Dynamixel:
@@ -75,7 +75,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the torque state
         """
-        dxl_torque = self.__get_small_register(dxl_id, AddressTable.ADDR_TORQUE.value)
+        dxl_torque = self.__get_small_register(dxl_id, _Address.ADDR_TORQUE.value)
         return dxl_torque
 
     def get_led(self, dxl_id: int) -> int:
@@ -84,7 +84,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the led state
         """
-        dxl_led = self.__get_small_register(dxl_id, AddressTable.ADDR_LED.value)
+        dxl_led = self.__get_small_register(dxl_id, _Address.ADDR_LED.value)
         return dxl_led
 
     def get_id(self, dxl_id: int) -> int:
@@ -93,7 +93,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the id
         """
-        dxl_identifier = self.__get_small_register(dxl_id, AddressTable.ADDR_ID.value)
+        dxl_identifier = self.__get_small_register(dxl_id, _Address.ADDR_ID.value)
         return dxl_identifier
 
     def get_shadow_id(self, dxl_id: int) -> int:
@@ -102,7 +102,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the shadow id
         """
-        dxl_shadow_id = self.__get_small_register(dxl_id, AddressTable.ADDR_SHADOW_ID.value)
+        dxl_shadow_id = self.__get_small_register(dxl_id, _Address.ADDR_SHADOW_ID.value)
         return dxl_shadow_id
 
     def get_drive_mode(self, dxl_id: int) -> int:
@@ -111,7 +111,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the drive mode
         """
-        dxl_drive_mode = self.__get_small_register(dxl_id, AddressTable.ADDR_DRIVE_MODE.value)
+        dxl_drive_mode = self.__get_small_register(dxl_id, _Address.ADDR_DRIVE_MODE.value)
         return dxl_drive_mode
 
     def get_operating_mode(self, dxl_id: int) -> int:
@@ -120,7 +120,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the operating mode
         """
-        dxl_operating_mode = self.__get_small_register(dxl_id, AddressTable.ADDR_OPERATING_MODE.value)
+        dxl_operating_mode = self.__get_small_register(dxl_id, _Address.ADDR_OPERATING_MODE.value)
         return dxl_operating_mode
 
     def get_model_number(self, dxl_id: int) -> int:
@@ -129,7 +129,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the model number of the dynamixel
         """
-        dxl_model_number = self.__get_medium_register(dxl_id, AddressTable.ADDR_MODEL_NUMBER.value)
+        dxl_model_number = self.__get_medium_register(dxl_id, _Address.ADDR_MODEL_NUMBER.value)
         return dxl_model_number
 
     def get_firmware_version(self, dxl_id: int) -> int:
@@ -138,7 +138,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the firmware version
         """
-        dxl_firmware_version = self.__get_small_register(dxl_id, AddressTable.ADDR_FIRMWARE_VERSION.value)
+        dxl_firmware_version = self.__get_small_register(dxl_id, _Address.ADDR_FIRMWARE_VERSION.value)
         return dxl_firmware_version
 
     def get_protocol_type(self, dxl_id: int) -> int:
@@ -147,7 +147,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the protocol type
         """
-        dxl_protocol_type = self.__get_small_register(dxl_id, AddressTable.ADDR_PROTOCOL_TYPE.value)
+        dxl_protocol_type = self.__get_small_register(dxl_id, _Address.ADDR_PROTOCOL_TYPE.value)
         return dxl_protocol_type
 
     def get_velocity_kp_gain(self, dxl_id: int) -> int:
@@ -156,7 +156,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the velocity p gain
         """
-        dxl_gain = self.__get_medium_register(dxl_id, AddressTable.ADDR_VELOCITY_P_GAIN.value)
+        dxl_gain = self.__get_medium_register(dxl_id, _Address.ADDR_VELOCITY_P_GAIN.value)
         return dxl_gain
 
     def get_velocity_ki_gain(self, dxl_id: int) -> int:
@@ -165,7 +165,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the velocity i gain
         """
-        dxl_gain = self.__get_medium_register(dxl_id, AddressTable.ADDR_VELOCITY_I_GAIN.value)
+        dxl_gain = self.__get_medium_register(dxl_id, _Address.ADDR_VELOCITY_I_GAIN.value)
         return dxl_gain
 
     def get_position_kp_gain(self, dxl_id: int) -> int:
@@ -174,7 +174,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the position p gain
         """
-        dxl_gain = self.__get_medium_register(dxl_id, AddressTable.ADDR_POSITION_P_GAIN.value)
+        dxl_gain = self.__get_medium_register(dxl_id, _Address.ADDR_POSITION_P_GAIN.value)
         return dxl_gain
 
     def get_position_ki_gain(self, dxl_id: int) -> int:
@@ -183,7 +183,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the position i gain
         """
-        dxl_gain = self.__get_medium_register(dxl_id, AddressTable.ADDR_POSITION_I_GAIN.value)
+        dxl_gain = self.__get_medium_register(dxl_id, _Address.ADDR_POSITION_I_GAIN.value)
         return dxl_gain
 
     def get_position_kd_gain(self, dxl_id: int) -> int:
@@ -192,7 +192,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the position d gain
         """
-        dxl_gain = self.__get_medium_register(dxl_id, AddressTable.ADDR_POSITION_D_GAIN.value)
+        dxl_gain = self.__get_medium_register(dxl_id, _Address.ADDR_POSITION_D_GAIN.value)
         return dxl_gain
 
     def get_feedforward_first_gain(self, dxl_id: int) -> int:
@@ -201,7 +201,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the feedforward first gain
         """
-        dxl_gain = self.__get_medium_register(dxl_id, AddressTable.ADDR_FEEDFORWARD_FIRST_GAIN.value)
+        dxl_gain = self.__get_medium_register(dxl_id, _Address.ADDR_FEEDFORWARD_FIRST_GAIN.value)
         return dxl_gain
 
     def get_feedforward_second_gain(self, dxl_id: int) -> int:
@@ -210,7 +210,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the feedforward second gain
         """
-        dxl_gain = self.__get_medium_register(dxl_id, AddressTable.ADDR_FEEDFORWARD_SECOND_GAIN.value)
+        dxl_gain = self.__get_medium_register(dxl_id, _Address.ADDR_FEEDFORWARD_SECOND_GAIN.value)
         return dxl_gain
 
     def get_present_temperature(self, dxl_id: int) -> int:
@@ -219,7 +219,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the present temperature
         """
-        dxl_temperature = self.__get_small_register(dxl_id, AddressTable.ADDR_PRESENT_TEMPERATURE.value)
+        dxl_temperature = self.__get_small_register(dxl_id, _Address.ADDR_PRESENT_TEMPERATURE.value)
         return dxl_temperature
 
     def get_present_pwm(self, dxl_id: int) -> int:
@@ -228,7 +228,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the present pwm
         """
-        dxl_pwm = self.__get_large_register(dxl_id, AddressTable.ADDR_PRESENT_PWM.value)
+        dxl_pwm = self.__get_large_register(dxl_id, _Address.ADDR_PRESENT_PWM.value)
         return dxl_pwm
 
     def get_present_load(self, dxl_id: int) -> int:
@@ -237,7 +237,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the present load
         """
-        dxl_load = self.__get_medium_register(dxl_id, AddressTable.ADDR_PRESENT_LOAD.value)
+        dxl_load = self.__get_medium_register(dxl_id, _Address.ADDR_PRESENT_LOAD.value)
         return dxl_load
 
     def get_present_input_voltage(self, dxl_id: int) -> int:
@@ -246,7 +246,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the present input voltage
         """
-        dxl_input_voltage = self.__get_medium_register(dxl_id, AddressTable.ADDR_PRESENT_INPUT_VOLTAGE.value)
+        dxl_input_voltage = self.__get_medium_register(dxl_id, _Address.ADDR_PRESENT_INPUT_VOLTAGE.value)
         return dxl_input_voltage
 
     def get_present_velocity(self, dxl_id: int) -> int:
@@ -255,7 +255,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the present velocity
         """
-        dxl_velocity = self.__get_large_register(dxl_id, AddressTable.ADDR_PRESENT_VELOCITY.value)
+        dxl_velocity = self.__get_large_register(dxl_id, _Address.ADDR_PRESENT_VELOCITY.value)
         return dxl_velocity
 
     def get_present_position(self, dxl_id: int) -> int:
@@ -264,7 +264,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the present position
         """
-        dxl_position = self.__get_large_register(dxl_id, AddressTable.ADDR_PRESENT_POSITION.value)
+        dxl_position = self.__get_large_register(dxl_id, _Address.ADDR_PRESENT_POSITION.value)
         return dxl_position
 
     def get_realtime_tick(self, dxl_id: int) -> int:
@@ -273,16 +273,16 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :return: the realtime tick
         """
-        dxl_realtime_tick = self.__get_medium_register(dxl_id, AddressTable.ADDR_REALTIME_TICK.value)
+        dxl_realtime_tick = self.__get_medium_register(dxl_id, _Address.ADDR_REALTIME_TICK.value)
         return dxl_realtime_tick
 
-    def set_torque(self, dxl_id: int, torque_state: int):
+    def set_torque(self, dxl_id: int, torque_state: bool):
         """
         set the torque of the dynamixel
         :param dxl_id: the id of the dynamixel
         :param torque_state: the torque as int
         """
-        self.__set_small_register(dxl_id, AddressTable.ADDR_TORQUE.value, torque_state)
+        self.__set_small_register(dxl_id, _Address.ADDR_TORQUE.value, torque_state)
 
     def set_led(self, dxl_id: int, led_state: bool):
         """
@@ -290,7 +290,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param led_state: led state as bool
         """
-        self.__set_small_register(dxl_id, AddressTable.ADDR_LED.value, led_state)
+        self.__set_small_register(dxl_id, _Address.ADDR_LED.value, led_state)
 
     def set_id(self, dxl_id: int, identifier: int):
         """
@@ -298,7 +298,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param identifier: the id as int from 0-255
         """
-        self.__set_small_register(dxl_id, AddressTable.ADDR_ID.value, identifier)
+        self.__set_small_register(dxl_id, _Address.ADDR_ID.value, identifier)
 
     def set_shadow_id(self, dxl_id: int, shadow_id: int):
         """
@@ -306,23 +306,31 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param shadow_id: the shadow id as int from 0-255
         """
-        self.__set_small_register(dxl_id, AddressTable.ADDR_SHADOW_ID.value, shadow_id)
+        self.__set_small_register(dxl_id, _Address.ADDR_SHADOW_ID.value, shadow_id)
 
     def set_operating_mode(self, dxl_id: int, control_mode: int):
         """
         set the operating mode of the dynamixel
+        list of control modes:
+        1. Velocity Control Mode        = 1
+        2. Position Control Mode        = 3
+        3. Extended Pos. Control Mode   = 4
+        4. PWM Control Mode             = 16
         :param dxl_id: the id of the dynamixel
         :param control_mode: the operating mode as int
         """
-        self.__set_small_register(dxl_id, AddressTable.ADDR_OPERATING_MODE.value, control_mode)
+        self.__set_small_register(dxl_id, _Address.ADDR_OPERATING_MODE.value, control_mode)
 
     def set_drive_mode(self, dxl_id: int, drive_mode: int):
         """
+        list of drive modes:
+        1. Drive Mode Normal    = 0
+        2. Drive Mode Reversed  = 1
         set the drive mode of the dynamixel
         :param dxl_id: the id of the dynamixel
         :param drive_mode: the drive mode as int
         """
-        self.__set_small_register(dxl_id, AddressTable.ADDR_DRIVE_MODE.value, drive_mode)
+        self.__set_small_register(dxl_id, _Address.ADDR_DRIVE_MODE.value, drive_mode)
 
     def set_goal_velocity(self, dxl_id: int, velocity: int):
         """
@@ -330,7 +338,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param velocity: the velocity as int, depends on model
         """
-        self.__set_large_register(dxl_id, AddressTable.ADDR_GOAL_VELOCITY.value, velocity)
+        self.__set_large_register(dxl_id, _Address.ADDR_GOAL_VELOCITY.value, velocity)
 
     def set_goal_position(self, dxl_id: int, position: int):
         """
@@ -338,7 +346,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param position: the goal position as int from 0-4096, depends on model
         """
-        self.__set_large_register(dxl_id, AddressTable.ADDR_GOAL_POSITION.value, position)
+        self.__set_large_register(dxl_id, _Address.ADDR_GOAL_POSITION.value, position)
 
     def set_velocity_kp_gain(self, dxl_id: int, gain: int):
         """
@@ -346,7 +354,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param gain: the gain as int
         """
-        self.__set_medium_register(dxl_id, AddressTable.ADDR_VELOCITY_P_GAIN.value, gain)
+        self.__set_medium_register(dxl_id, _Address.ADDR_VELOCITY_P_GAIN.value, gain)
 
     def set_velocity_ki_gain(self, dxl_id: int, gain: int):
         """
@@ -354,7 +362,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param gain: the gain as int
         """
-        self.__set_medium_register(dxl_id, AddressTable.ADDR_VELOCITY_I_GAIN.value, gain)
+        self.__set_medium_register(dxl_id, _Address.ADDR_VELOCITY_I_GAIN.value, gain)
 
     def set_position_kp_gain(self, dxl_id: int, gain: int):
         """
@@ -362,7 +370,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param gain: the gain as int
         """
-        self.__set_medium_register(dxl_id, AddressTable.ADDR_POSITION_P_GAIN.value, gain)
+        self.__set_medium_register(dxl_id, _Address.ADDR_POSITION_P_GAIN.value, gain)
 
     def set_position_ki_gain(self, dxl_id: int, gain: int):
         """
@@ -370,7 +378,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param gain: the gain as int
         """
-        self.__set_medium_register(dxl_id, AddressTable.ADDR_POSITION_I_GAIN.value, gain)
+        self.__set_medium_register(dxl_id, _Address.ADDR_POSITION_I_GAIN.value, gain)
 
     def set_position_kd_gain(self, dxl_id: int, gain: int):
         """
@@ -378,7 +386,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param gain: the gain as int
         """
-        self.__set_medium_register(dxl_id, AddressTable.ADDR_POSITION_D_GAIN.value, gain)
+        self.__set_medium_register(dxl_id, _Address.ADDR_POSITION_D_GAIN.value, gain)
 
     def set_feedforward_first_gain(self, dxl_id: int, gain: int):
         """
@@ -386,7 +394,7 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param gain: the gain as int
         """
-        self.__set_medium_register(dxl_id, AddressTable.ADDR_FEEDFORWARD_FIRST_GAIN.value, gain)
+        self.__set_medium_register(dxl_id, _Address.ADDR_FEEDFORWARD_FIRST_GAIN.value, gain)
 
     def set_feedforward_second_gain(self, dxl_id: int, gain: int):
         """
@@ -394,9 +402,9 @@ class Dynamixel:
         :param dxl_id: the id of the dynamixel
         :param gain: the gain as int
         """
-        self.__set_medium_register(dxl_id, AddressTable.ADDR_FEEDFORWARD_SECOND_GAIN.value, gain)
+        self.__set_medium_register(dxl_id, _Address.ADDR_FEEDFORWARD_SECOND_GAIN.value, gain)
 
-    def set_goal_velocity_group(self, dxl1_id: int, dxl2_id: int, dxl1_velocity: int, dxl2_velocity: int):
+    def set_group_goal_velocity(self, dxl1_id: int, dxl2_id: int, dxl1_velocity: int, dxl2_velocity: int):
         """
         set the goal velocity of a dynamixel group
         :param dxl1_id: the id of the first dynamixel
@@ -406,11 +414,11 @@ class Dynamixel:
         """
         dxl1_velocity_value = self.__sync_value(dxl1_velocity)
         dxl2_velocity_value = self.__sync_value(dxl2_velocity)
-        self.__set_group_register(dxl1_id, dxl2_id, AddressTable.ADDR_GOAL_VELOCITY.value,
-                                  AddressTable.ADDR_LEN_GOAL_VELOCITY.value,
+        self.__set_group_register(dxl1_id, dxl2_id, _Address.ADDR_GOAL_VELOCITY.value,
+                                  _Address.ADDR_LEN_GROUP_SET.value,
                                   dxl1_velocity_value, dxl2_velocity_value)
 
-    def set_goal_position_group(self, dxl1_id: int, dxl2_id: int, dxl1_position: int, dxl2_position: int):
+    def set_group_goal_position(self, dxl1_id: int, dxl2_id: int, dxl1_position: int, dxl2_position: int):
         """
         set the goal position of a dynamixel group
         :param dxl1_id: the id of the first dynamixel
@@ -420,8 +428,8 @@ class Dynamixel:
         """
         dxl1_position_value = self.__sync_value(dxl1_position)
         dxl2_position_value = self.__sync_value(dxl2_position)
-        self.__set_group_register(dxl1_id, dxl2_id, AddressTable.ADDR_GOAL_POSITION.value,
-                                  AddressTable.ADDR_LEN_GOAL_POSITION.value,
+        self.__set_group_register(dxl1_id, dxl2_id, _Address.ADDR_GOAL_POSITION.value,
+                                  _Address.ADDR_LEN_GROUP_SET.value,
                                   dxl1_position_value, dxl2_position_value)
 
     # MARK: PRIVATE REGISTER FUNCTIONS

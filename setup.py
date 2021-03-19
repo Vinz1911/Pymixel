@@ -21,13 +21,13 @@
 __author__ = "Vinzenz Weist"
 __copyright__ = "Copyright 2020, Vinzenz Weist"
 __license__ = "GPLv3"
-__version__ = "0.8.0"
+__version__ = "0.9.5"
 
 from setuptools import setup
 
 setup(
     name='pymixel',
-    version='0.8.0',
+    version='0.9.5',
     packages=['pymixel'],
     package_dir={'': 'src'},
     license='GPLv3',
