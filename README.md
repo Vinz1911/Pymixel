@@ -37,7 +37,6 @@ from pymixel import Dynamixel
 ### Examples:
 ```python
 from pymixel import Dynamixel
-import time
 
 DXL_ID_ONE = 1      # dynamixel id
 VELOCITY_MODE = 1   # velocity mode
